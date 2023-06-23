@@ -8,11 +8,19 @@ const templatePath = path.join(__dirname, 'src', 'index.hbs');
 const partialsFolderPath = path.join(__dirname, 'src', 'partials');
 const scssFolderPath = path.join(__dirname, 'src', 'scss');
 const scssFilePath = path.join(__dirname, 'src', 'scss', 'main.scss');
-const cssFolderPath = path.join(__dirname, 'dist', 'css');
 const distFolderPath = path.join(__dirname, 'dist');
+const cssFolderPath = path.join(distFolderPath, 'css');
 const distFilePath = path.join(distFolderPath, 'index.html');
 const styleFilePath = path.join(cssFolderPath, 'style.css');
 const contextFilePath = path.join(__dirname, 'src', 'context.js');
+
+if (!fs.existsSync(distFolderPath)) {
+  fs.mkdirSync(distFolderPath);
+}
+
+if (!fs.existsSync(cssFolderPath)) {
+  fs.mkdirSync(cssFolderPath);
+}
 
 // Read the initial content of the index.hbs file
 let templateContent = fs.readFileSync(templatePath, 'utf8');
@@ -80,6 +88,7 @@ watcher.on('change', (filePath) => {
       (err, result) => {
         if (!err) {
           // Write the compiled CSS to style.css in the CSS folder
+          fs.mkdir
           fs.writeFileSync(styleFilePath, result.css, 'utf8');
 
           console.log('style.css updated');
@@ -99,11 +108,6 @@ watcher.on('change', (filePath) => {
     renderTemplate(context);
   }
 });
-
-// Create the CSS folder if it doesn't exist
-if (!fs.existsSync(cssFolderPath)) {
-  fs.mkdirSync(cssFolderPath);
-}
 
 // Register the initial partials
 registerPartials();
