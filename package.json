@@ -1,0 +1,17 @@
+{
+  "name": "hbs_structure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "handlebars": "^4.7.7",
+    "node-sass": "^9.0.0"
+  }
+}
