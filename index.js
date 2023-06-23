@@ -7,6 +7,7 @@ const sass = require('node-sass');
 const templatePath = path.join(__dirname, 'src', 'index.hbs');
 const partialsFolderPath = path.join(__dirname, 'src', 'partials');
 const scssFolderPath = path.join(__dirname, 'src', 'scss');
+const scssFilePath = path.join(__dirname, 'src', 'scss', 'main.scss');
 const cssFolderPath = path.join(__dirname, 'dist', 'css');
 const distFolderPath = path.join(__dirname, 'dist');
 const distFilePath = path.join(distFolderPath, 'index.html');
@@ -73,7 +74,7 @@ watcher.on('change', (filePath) => {
     // Compile SCSS to CSS
     sass.render(
       {
-        file: filePath,
+        file: scssFilePath,
         outputStyle: 'compressed',
       },
       (err, result) => {

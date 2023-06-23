@@ -8,15 +8,13 @@ The project expects the following structure:
 
 - `src/`: This directory contains the source files.
   - `index.hbs`: The main Handlebars template file.
+  - `context.js`: A JavaScript file that exports the context object to be used in the template.
   - `partials/`: A directory containing partials to be included in the main template.
   - `scss/`: A directory containing SCSS files.
-    - `style.scss`: The main SCSS file to be compiled.
+    - `main.scss`: The main SCSS file to be compiled.
 - `dist/`: This directory contains the output files.
   - `css/`: A directory where the compiled CSS file will be generated.
     - `style.css`: The compiled CSS file.
-- `src/`: This directory contains the context file.
-  - `context.js`: A JavaScript file that exports the context object to be used in the template.
-- `script.js`: The script file responsible for dynamically rendering the Handlebars template, watching for changes, and triggering recompilation.
 
 ## Usage
 
