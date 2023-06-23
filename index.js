@@ -56,6 +56,26 @@ const renderTemplate = (context) => {
   console.log('index.html updated');
 };
 
+const compileSass = () => {
+  // Compile SCSS to CSS
+  sass.render(
+    {
+      file: scssFilePath,
+      outputStyle: 'compressed',
+    },
+    (err, result) => {
+      if (!err) {
+        // Write the compiled CSS to style.css in the CSS folder
+        fs.writeFileSync(styleFilePath, result.css, 'utf8');
+
+        console.log('style.css updated');
+      } else {
+        console.error('SCSS compilation error:', err);
+      }
+    }
+  );
+}
+
 // Watch for changes in the template, SCSS, and context files
 const watcher = chokidar.watch([templatePath, scssFolderPath, contextFilePath], {
   ignored: /(^|[/\\])\../, // ignore dotfiles
@@ -79,24 +99,9 @@ watcher.on('change', (filePath) => {
     // Render the template with the updated context object
     renderTemplate(context);
   } else if (fileExt === '.scss') {
-    // Compile SCSS to CSS
-    sass.render(
-      {
-        file: scssFilePath,
-        outputStyle: 'compressed',
-      },
-      (err, result) => {
-        if (!err) {
-          // Write the compiled CSS to style.css in the CSS folder
-          fs.mkdir
-          fs.writeFileSync(styleFilePath, result.css, 'utf8');
+    // Compile the SCSS to CSS
+    compileSass();
 
-          console.log('style.css updated');
-        } else {
-          console.error('SCSS compilation error:', err);
-        }
-      }
-    );
   } else if (filePath === contextFilePath) {
     // Clear the require cache for context.js
     delete require.cache[require.resolve(contextFilePath)];
@@ -108,6 +113,9 @@ watcher.on('change', (filePath) => {
     renderTemplate(context);
   }
 });
+
+// Compile initial CSS
+compileSass();
 
 // Register the initial partials
 registerPartials();
